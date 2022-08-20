@@ -7,6 +7,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
 import styles from './HeaderSearch.module.scss';
+import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
@@ -17,9 +18,16 @@ const HeaderSearch = () => {
   const [loading, setLoading] = useState(false);
 
   const inputRef = useRef();
+  const debounceSearch = useDebounce(searchValue, 800);
 
   useEffect(() => {
-    if (!searchValue.trim()) {
+    if (!searchValue.trim()) return;
+
+    setLoading(true);
+  }, [searchValue]);
+
+  useEffect(() => {
+    if (!debounceSearch.trim()) {
       setSearchResult([]);
       return;
     }
@@ -27,14 +35,14 @@ const HeaderSearch = () => {
     setLoading(true);
     fetch(
       `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-        searchValue,
+        debounceSearch,
       )}&type=less`,
     )
       .then((res) => res.json())
       .then((res) => setSearchResult(res.data))
-      .catch((error) => console.log({ error }))
+      .catch((error) => console.log(error))
       .finally(() => setLoading(false));
-  }, [searchValue]);
+  }, [debounceSearch]);
 
   const handleClear = () => {
     setSearchValue('');
