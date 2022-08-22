@@ -19,7 +19,7 @@ import images from '~/assets/images';
 import Menu from '~/components/Popper/Menu';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
-import HeaderSearch from '../HeaderSearch';
+import Search from '../Search';
 import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
 
@@ -56,7 +56,7 @@ const MENU_ITEMS = [
   },
 ];
 
-function Header() {
+const Header = () => {
   const currentUser = true;
 
   // Handle logic
@@ -101,7 +101,7 @@ function Header() {
         <Link to={routes.home} className={cx('logo-link')}>
           <img src={images.logo} alt="Tiktok" />
         </Link>
-        <HeaderSearch />
+        <Search />
         <div className={cx('actions')}>
           {currentUser ? (
             <>
@@ -148,6 +148,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

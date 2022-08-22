@@ -3,16 +3,16 @@ import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import * as searchServices from '~/apiServices/searchServices';
+import * as searchService from '~/services/searchService';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
-import styles from './HeaderSearch.module.scss';
+import styles from './Search.module.scss';
 import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
-const HeaderSearch = () => {
+const Search = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(true);
@@ -39,7 +39,7 @@ const HeaderSearch = () => {
     const fetchApi = async () => {
       setLoading(true);
 
-      const result = await searchServices.search(debounceSearch);
+      const result = await searchService.search(debounceSearch);
 
       setSearchResult(result);
       setLoading(false);
@@ -114,4 +114,4 @@ const HeaderSearch = () => {
   );
 };
 
-export default HeaderSearch;
+export default Search;
