@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import DefaultLayout from '~/layouts';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <div className="App">
@@ -34,6 +34,6 @@ function App() {
       </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
